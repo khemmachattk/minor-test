@@ -23,7 +23,7 @@ To run the application locally, follow these steps:
 2. Navigate to the project directory:
 
    ```bash
-   cd your-repository
+   cd minor-test
    ```
 
 3. Install dependencies:
