@@ -43,6 +43,5 @@ class MinorApi {
       },
     );
     return ValidData.fromJson(response.data).isValid ?? false;
-    return true;
   }
 }

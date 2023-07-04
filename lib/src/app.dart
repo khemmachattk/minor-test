@@ -22,11 +22,9 @@ class App extends StatelessWidget {
           ),
         ),
         BlocProvider<RegisterCubit>(
-          create: (context) {
-            return RegisterCubit(
-              minorApi: context.read<MinorApi>(),
-            );
-          },
+          create: (context) => RegisterCubit(
+            minorApi: context.read<MinorApi>(),
+          ),
         ),
       ],
       child: MaterialApp(
