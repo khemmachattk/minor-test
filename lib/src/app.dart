@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_flavor/flutter_flavor.dart';
 import 'package:minor_register/src/features/register/register.cubit.dart';
 import 'package:minor_register/src/features/register/register_form.page.dart';
 import 'package:minor_register/src/network/app_client.dart';
@@ -13,7 +14,12 @@ class App extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         RepositoryProvider<MinorApi>(
-          create: (context) => MinorApi(client: AppClient()),
+          create: (context) => MinorApi(
+            client: AppClient(
+              baseUrl: FlavorConfig.instance.variables['baseUrl'],
+              apiKey: FlavorConfig.instance.variables['apiKey'],
+            ),
+          ),
         ),
         BlocProvider<RegisterCubit>(
           create: (context) {

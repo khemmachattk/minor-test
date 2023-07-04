@@ -45,9 +45,7 @@ class _RegisterOtpState extends State<RegisterOtpPage> {
     final otpExpireAt = context.read<RegisterCubit>().state.otpExpireAt!;
     setState(() {
       _counter = otpExpireAt.difference(DateTime.now()).inSeconds;
-      if (_counter <= 0) {
-        _counter = 0;
-      }
+      if (_counter <= 0) _counter = 0;
     });
   }
 

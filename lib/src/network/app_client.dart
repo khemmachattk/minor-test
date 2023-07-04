@@ -1,16 +1,19 @@
-import 'package:flutter_flavor/flutter_flavor.dart';
 import 'package:dio/dio.dart';
 
 class AppClient {
-  late Dio _dio;
+  late Dio dio;
+  final String baseUrl;
+  final String apiKey;
 
-  AppClient() {
-    _dio = Dio(
+  AppClient({
+    required this.baseUrl,
+    required this.apiKey,
+  }) {
+    dio = Dio(
       BaseOptions(
-        baseUrl: FlavorConfig.instance.variables['baseUrl'],
+        baseUrl: baseUrl,
         headers: {
-          'Authorization':
-              'Bearer ${FlavorConfig.instance.variables['apiKey']}',
+          'Authorization': 'Bearer $apiKey',
         },
       ),
     );
@@ -21,12 +24,17 @@ class AppClient {
     Object? data,
     Map<String, dynamic>? queryParameters,
     Options? options,
-  }) {
-    return _dio.post(
-      path,
-      data: data,
-      queryParameters: queryParameters,
-      options: options,
-    );
+  }) async {
+    try {
+      final response = await dio.post<T>(
+        path,
+        data: data,
+        queryParameters: queryParameters,
+        options: options,
+      );
+      return response;
+    } on DioException catch (e) {
+      throw Exception(e.message);
+    }
   }
 }
